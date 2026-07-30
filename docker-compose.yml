@@ -15,5 +15,6 @@ services:
     volumes:
       - /dev:/dev
       - /sys:/sys:ro
+      - ./config:/app/config
     ports:
       - "8073:8073"

@@ -72,4 +72,4 @@ echo "Starting modem73 service in the foreground..."
 ) &
 
 # Exec replaces the shell with modem73, keeping it as PID 1 so Docker can track it
-exec modem73 --headless --ptt serial --serial-port /dev/radio_ptt
+exec modem73 --headless --ptt serial --serial-port /dev/radio_ptt $MODEM_EXTRA_ARGS
