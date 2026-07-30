@@ -4,14 +4,14 @@ An open-source, deployable container stack that bridges local LoRa mesh networks
 
 By replacing unreliable acoustic coupling with direct electronic PTT/Audio interfaces (Digirig or AIOC) and leveraging [modem73](https://github.com/RFnexus/modem73) for extreme noise-floor decoding, this setup provides a highly resilient, off-grid text backbone for isolated communities.
 
-## 🏗️ System Architecture
+## System Architecture
 
 This bridge acts as a smart RF Gateway between two different radio bands:
 1. **Local Layer (915MHz LoRa):** A locally attached MeshCore node ingests text packets from the neighborhood mesh network.
 2. **Translation (Raspberry Pi):** The packets are routed via `socat` into `modem73` (KISS over TCP), which encodes them into multicarrier OFDM/MFSK audio.
 3. **Regional Layer (VHF/UHF):** The audio is sent through a Digirig or AIOC to a high-power VHF/UHF mobile transceiver, blasting the data over line-of-sight to a distant receiving node.
 
-## 🛠️ Hardware Requirements
+## Hardware Requirements
 
 * **Host:** Raspberry Pi (3, 4, or 5) running a standard Linux OS with Docker installed.
 * **Local Gateway:** Any MeshCore-compatible LoRa node (e.g., Heltec, T-Deck) configured for serial/KISS output over USB.
@@ -20,7 +20,7 @@ This bridge acts as a smart RF Gateway between two different radio bands:
   * [AIOC (All-In-One-Cable)](https://github.com/skuep/AIOC)
 * **Radio:** Any standard VHF/UHF mobile transceiver.
 
-## 🚀 Quick Start (Auto-Detection)
+## Quick Start (Auto-Detection)
 
 This container is designed to be plug-and-play. The startup script automatically scans your USB tree and detects standard AIOCs, Digirigs, and CH340-based MeshCore nodes.
 
@@ -39,7 +39,7 @@ This container is designed to be plug-and-play. The startup script automatically
    docker compose logs -f
    ```
 
-## ⚙️ Custom Hardware Configuration
+## Custom Hardware Configuration
 
 If you are using clone USB serial chips or hardware that isn't automatically detected, you do not need to mess with Linux `udev` rules. You can override the hardware detection directly in the `docker-compose.yml` file.
 
@@ -57,10 +57,10 @@ Uncomment the `environment:` block in `docker-compose.yml` and provide your spec
 
 Rebuild the container (`docker compose up -d --build`) and the startup script will bind your specific chips to the internal bridge.
 
-## 🤝 Contributing
+## Contributing
 
 This is a community-driven off-grid project. Pull requests are welcome! If you find a new standard USB chip that should be added to the auto-detection script, please open an issue or submit a PR for `entrypoint.sh`.
 
-## 📄 License
+## License
 
 [MIT License](LICENSE) - Free to use, modify, and distribute.
