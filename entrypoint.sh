@@ -54,8 +54,22 @@ else
     echo "WARNING: Could not auto-detect MeshCore node."
 fi
 
-echo "Starting socat serial bridge..."
-socat /dev/meshcore_node,raw,echo=0,b115200 TCP:127.0.0.1:8001 &
+# ==========================================
+# UPDATED SECTION: Smart Startup Sequence
+# ==========================================
 
-echo "Starting modem73 service..."
+echo "Starting modem73 service in the foreground..."
+
+# Launch socat in a background subshell that waits for port 8001
+(
+  echo "Waiting for modem73 to open KISS TCP port 8001..."
+  # Bash built-in loop to check if the TCP port is accepting connections
+  while ! (echo > /dev/tcp/127.0.0.1/8001) >/dev/null 2>&1; do
+    sleep 1
+  done
+  echo "modem73 is ready! Starting socat serial bridge..."
+  socat /dev/meshcore_node,raw,echo=0,b115200 TCP:127.0.0.1:8001
+) &
+
+# Exec replaces the shell with modem73, keeping it as PID 1 so Docker can track it
 exec modem73 --headless --ptt serial --serial-port /dev/radio_ptt
