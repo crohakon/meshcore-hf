@@ -1,0 +1,19 @@
+services:
+  mesh-bridge:
+    build: .
+    container_name: modem73-bridge
+    restart: unless-stopped
+    privileged: true
+    environment:
+      # Uncomment and modify these variables to override hardware auto-detection.
+      # Values should be the 4-character hex ID (e.g., 10c4)
+      # 
+      # - PTT_VID=10c4
+      # - PTT_PID=ea60
+      # - MESH_VID=1a86
+      # - MESH_PID=7523
+    volumes:
+      - /dev:/dev
+      - /sys:/sys:ro
+    ports:
+      - "8073:8073"
