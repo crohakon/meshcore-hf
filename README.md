@@ -1,4 +1,4 @@
-# VHF/UHF LoRa Mesh Bridge (Modem73 + Docker)
+# VHF/UHF LoRa Mesh Bridge (Modem73 + socat)
 
 An open-source, deployable container stack that bridges local LoRa mesh networks (MeshCore) across 20-50 mile regional gaps using standard VHF/UHF mobile radios. 
 
@@ -8,7 +8,7 @@ By replacing unreliable acoustic coupling with direct electronic PTT/Audio inter
 
 This bridge acts as a smart RF Gateway between two different radio bands:
 1. **Local Layer (915MHz LoRa):** A locally attached MeshCore node ingests text packets from the neighborhood mesh network.
-2. **Translation (Raspberry Pi + Docker):** The packets are routed via `socat` into `modem73` (KISS over TCP), which encodes them into multicarrier OFDM/MFSK audio.
+2. **Translation (Raspberry Pi):** The packets are routed via `socat` into `modem73` (KISS over TCP), which encodes them into multicarrier OFDM/MFSK audio.
 3. **Regional Layer (VHF/UHF):** The audio is sent through a Digirig or AIOC to a high-power VHF/UHF mobile transceiver, blasting the data over line-of-sight to a distant receiving node.
 
 ## 🛠️ Hardware Requirements
@@ -27,8 +27,8 @@ This container is designed to be plug-and-play. The startup script automatically
 1. Plug in your Digirig/AIOC and your MeshCore node to the Raspberry Pi.
 2. Clone this repository:
    ```bash
-   git clone https://github.com/[Your-Username]/modem73-bridge.git
-   cd modem73-bridge
+   git clone https://github.com/crohakon/meshcore-hf.git
+   cd meshcore-hf
    ```
 3. Build and launch the stack:
    ```bash
