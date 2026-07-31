@@ -17,4 +17,4 @@ services:
       - /sys:/sys:ro
       - ./config:/app/config
     ports:
-      - "8073:8073"
+      - "8001:8001"
